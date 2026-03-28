@@ -4,3 +4,5 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+deviantart = { git = "https://github.com/adumbidiot/deviantart-rs.git", version = "0.0.0" }
+tokio = "1.50.0"
