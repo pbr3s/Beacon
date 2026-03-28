@@ -18,9 +18,20 @@
 
 ###
 
-Para manter o projeto funcional, dividiremos em 2 partes. 
+Para manter o projeto funcional, dividiremos em 2 partes.
+
 - Orquestrador ( esse projeto ): Tem como objetivo fazer todo o trabalho de busca e documentação.
-- Banco de assinaturas: As regras especificas para detecção. 
-    - esse será mantido fora do código principal de modo que as técninas não sejam usadas inversamente para camuflar comportamento.
+- Banco de assinaturas: As regras especificas para detecção.
+  - esse será mantido fora do código principal de modo que as técninas não sejam usadas inversamente para camuflar comportamento.
 
 ###
+
+<h2 align="left">Dependecias</h2>
+
+###
+
+Deviantart-rs: [https://github.com/adumbidiot/deviantart-rs](https://github.com/adumbidiot/deviantart-rs.git)
+php-pinterest-bot: [https://github.com/seregazhuk/php-pinterest-bot](https://github.com/seregazhuk/php-pinterest-bot.git)
+
+É sério... usamos PHP!
+para isso usamos a biblioteca ripht-php-sapi: [https://github.com/jhavenz/ripht-php-sapi](https://github.com/jhavenz/ripht-php-sapi.git)
