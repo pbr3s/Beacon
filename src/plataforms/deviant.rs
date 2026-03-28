@@ -5,12 +5,27 @@ use std::vec::Vec;
 #[derive(Debug)]
 pub struct Client {
     client: deviantart::Client,
+    suspeitos: Suspeitos
+}
+
+#[derive(Debug)]
+struct Suspeitos {
+    deviacoes: Vec<DeviationItem>
+}
+
+impl Suspeitos {
+    fn new() -> Self {
+        Self {
+            deviacoes: Vec::new()
+        }
+    }
 }
 
 impl Client {
     pub fn new() -> Self {
         Self {
-            client: deviantart::Client::new()
+            client: deviantart::Client::new(),
+            suspeitos: Suspeitos::new()
         }
     }
 
@@ -48,9 +63,11 @@ impl Client {
                 let (_, deviation_extended) = entitie.deviation_extended.unwrap().into_iter().next().unwrap();
 
                 let description : Description = serde_json::from_value(deviation_extended.unknown.get("descriptionText").unwrap().clone()).expect("Não foi possível parsear a descrição");
-
                 let published_time : String = serde_json::from_value(deviation.unknown.get("publishedTime").unwrap().clone()).expect("Não foi possível parsear a data de publicação");
 
+                // Aqui devemos fazer as verificações.
+                // se encontrarmos algo vamos adcionar nos itens suspeitos.
+                
                 let new_deviation = DeviationItem {
                     titulo: deviation.title,
                     descricao: description.excerpt,
@@ -58,7 +75,8 @@ impl Client {
                     analized: false
                 };
 
-                println!("{:#?}", &new_deviation);
+                //self.suspeitos.deviacoes.push(new_deviation);
+
             },
             None => {}
         }
