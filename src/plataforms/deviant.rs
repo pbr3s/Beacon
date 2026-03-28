@@ -2,30 +2,19 @@ use deviantart::types::Deviation;
 use url::Url;
 use std::vec::Vec;
 
+use crate::scanner::Results::{Suspeitos, SuspectItem};
+
 #[derive(Debug)]
 pub struct Client {
     client: deviantart::Client,
-    suspeitos: Suspeitos
-}
-
-#[derive(Debug)]
-struct Suspeitos {
-    deviacoes: Vec<DeviationItem>
-}
-
-impl Suspeitos {
-    fn new() -> Self {
-        Self {
-            deviacoes: Vec::new()
-        }
-    }
+    suspects_mgr: tokio::sync::mpsc::UnboundedSender<SuspectItem>,
 }
 
 impl Client {
-    pub fn new() -> Self {
+    pub fn new(suspects_mgr: tokio::sync::mpsc::UnboundedSender<SuspectItem>) -> Self {
         Self {
             client: deviantart::Client::new(),
-            suspeitos: Suspeitos::new()
+            suspects_mgr
         }
     }
 
@@ -54,7 +43,9 @@ impl Client {
 
     async fn get_by_id(&mut self, url: Url){
 
-        let response = self.client.scrape_webpage(url.into_string().as_ref()).await;
+        let url_str = url.into_string();
+
+        let response = self.client.scrape_webpage(&url_str).await;
 
         match response.unwrap().entities {
             Some(entitie) => {
@@ -67,28 +58,20 @@ impl Client {
 
                 // Aqui devemos fazer as verificações.
                 // se encontrarmos algo vamos adcionar nos itens suspeitos.
-                
-                let new_deviation = DeviationItem {
+
+                let new_deviation = SuspectItem {
                     titulo: deviation.title,
                     descricao: description.excerpt,
-                    published_time: published_time,
-                    analized: false
+                    url: url_str,
+                    published_time: published_time
                 };
 
-                //self.suspeitos.deviacoes.push(new_deviation);
+                let _ = self.suspects_mgr.send(new_deviation);
 
             },
             None => {}
         }
     }
-}
-
-#[derive(Debug)]
-struct DeviationItem {
-    titulo: String,
-    descricao: String,
-    published_time: String,
-    analized: bool
 }
 
 #[derive(serde::Deserialize, Debug)]
