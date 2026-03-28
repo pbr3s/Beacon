@@ -1,3 +1,6 @@
+use deviantart::types::Deviation;
+use url::Url;
+
 #[derive(Debug)]
 pub struct Client {
     client: deviantart::Client
@@ -23,9 +26,23 @@ impl Client {
                 //baseado em assinaturas, já podemos começar a analisar conteúdo suspeito aqui.
                 //entretanto, vamos também analisar item por item. 
 
-                todo!("Vamos verificar assinaturas nos metadados e posteriormente item a item")
+                //hashmap
+                //let deviations = entitie.deviation;
+                for(_, deviant) in entitie.deviation.into_iter() {
+                    self.get_by_id(deviant.url).await;
+                }
+
             },
             None  => {}
         }
+    }
+
+    async fn get_by_id(&self, url: Url) -> Option<Deviation>{
+
+        let deviant = self.client.scrape_webpage(url.into_string().as_ref()).await;
+
+        println!("{:#?}", deviant);
+
+        todo!("Retorna Deviation")
     }
 }
