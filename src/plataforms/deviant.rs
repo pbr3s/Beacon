@@ -1,10 +1,31 @@
+#[derive(Debug)]
 pub struct Client {
     client: deviantart::Client
 }
 
 impl Client {
-    pub async fn new(&mut self, username: String, password: String){
-        self.client = deviantart::Client::new();
+    pub fn new() -> Self {
+        Self {
+            client: deviantart::Client::new()
+        }
+    }
+
+    pub async fn login(&mut self, username: String, password: String) {
         self.client.login(&username, &password).await.expect("Falha no login");
+    }
+
+    pub async fn home(&self) {
+        let r = self.client.scrape_webpage("https://www.deviantart.com/".to_string().as_ref()).await;
+        
+        match r.unwrap().entities {
+            Some (entitie) => {
+                //esses são os deviants dessa página. 
+                //baseado em assinaturas, já podemos começar a analisar conteúdo suspeito aqui.
+                //entretanto, vamos também analisar item por item. 
+
+                todo!("Vamos verificar assinaturas nos metadados e posteriormente item a item")
+            },
+            None  => {}
+        }
     }
 }
