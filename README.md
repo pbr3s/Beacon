@@ -30,8 +30,8 @@ Para manter o projeto funcional, dividiremos em 2 partes.
 
 ###
 
-Deviantart-rs: [https://github.com/adumbidiot/deviantart-rs](https://github.com/adumbidiot/deviantart-rs.git)
-php-pinterest-bot: [https://github.com/seregazhuk/php-pinterest-bot](https://github.com/seregazhuk/php-pinterest-bot.git)
+- Deviantart-rs: [https://github.com/adumbidiot/deviantart-rs](https://github.com/adumbidiot/deviantart-rs.git)
+- php-pinterest-bot: [https://github.com/seregazhuk/php-pinterest-bot](https://github.com/seregazhuk/php-pinterest-bot.git)
 
-É sério... usamos PHP!
-para isso usamos a biblioteca ripht-php-sapi: [https://github.com/jhavenz/ripht-php-sapi](https://github.com/jhavenz/ripht-php-sapi.git)
+É sério... usamos PHP! para isso usamos a biblioteca 
+- ripht-php-sapi: [https://github.com/jhavenz/ripht-php-sapi](https://github.com/jhavenz/ripht-php-sapi.git)
