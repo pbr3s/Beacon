@@ -1,3 +1,9 @@
 /target
 res.txt
 .env
+pinterest/vendor
+php/buildroot
+php/downloads
+php/log
+php/pkgroot
+php/source

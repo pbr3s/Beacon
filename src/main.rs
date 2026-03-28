@@ -19,6 +19,9 @@ async fn main() {
     //vamos criar uma intancia de deviantart
     let mut deviant_art = plataforms::deviant::Client::new(task_tx.clone());
 
+    //vamos criar uma instancia de pintrest
+    let mut pinterest = plataforms::pinterest::Client::new();
+
     let deviant_user = env::var("DEVIANT_USERNAME").expect("DEVIANT_USERNAME não definido");
     let deviant_pass = env::var("DEVIANT_PASSWORD").expect("DEVIANT_PASSWORD não definido");
     deviant_art.login(deviant_user, deviant_pass).await;
@@ -34,6 +37,7 @@ async fn main() {
     loop {
         intevalo.tick().await;
 
+        pinterest.home();
         deviant_art.home().await;
     }
 }
