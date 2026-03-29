@@ -26,7 +26,7 @@ async fn main() {
     let deviant_pass = env::var("DEVIANT_PASSWORD").expect("DEVIANT_PASSWORD não definido");
     deviant_art.login(deviant_user, deviant_pass).await;
 
-    let mut intevalo = interval(Duration::from_secs(30));
+    let mut intevalo = interval(Duration::from_secs(1560));
 
     let rx_task = tokio::spawn(async move {
         while let Some(SuspectItem) = task_rx.recv().await {

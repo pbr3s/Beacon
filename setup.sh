@@ -1,0 +1,1 @@
+apt update && apt install -y musl-tools libclang-dev clang php8.4 php8.4-xml; #php-xml é para termos a extenção ext-dom
